@@ -6,7 +6,7 @@ import axios from 'axios'
 import './App.css'
 
 class App extends Component {
-  GitHubUserURL = 'https://api.github.com/users'
+  GitHubUserURL = `https://api.github.com/users?client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}&client_secret=${process.env.REACT_APP_GITHUB_CLIENT_SECRET}`
 
   state = {
     users: [],
