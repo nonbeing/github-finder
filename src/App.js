@@ -15,6 +15,10 @@ class App extends Component {
     loading: false
   }
 
+  clearUsers = () => {
+    this.setState({ users: [], loading: false })
+  }
+
   searchUsers = async queryText => {
     this.setState({ loading: true })
     // const GitHubSearchURL = `https://api.github.com/search/users?q=${queryText}&client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}&client_secret=${process.env.REACT_APP_GITHUB_CLIENT_SECRET}`
@@ -27,16 +31,17 @@ class App extends Component {
   }
 
   render() {
+    const { loading, users } = this.state
     return (
       <div className='App'>
         <Navbar />
         <div className='container'>
-          <Search searchUsers={this.searchUsers} />
-          {this.state.loading ? (
-            <Spinner />
-          ) : (
-            <Users loading={this.state.loading} users={this.state.users} />
-          )}
+          <Search
+            searchUsers={this.searchUsers}
+            clearUsers={this.clearUsers}
+            showClear={users.length > 0 ? true : false}
+          />
+          {loading ? <Spinner /> : <Users loading={loading} users={users} />}
         </div>
       </div>
     )
